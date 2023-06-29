@@ -7,10 +7,10 @@ console.log(process.env.MAIL_USER)
 const mailSender = async (email, title, body) => {
     try{
             let transporter = nodemailer.createTransport({
-                host:process.env.MAIL_HOST,
+                host:"smtp.gmail.com",
                 auth:{
-                    user: process.env.MAIL_USER,
-                    pass: process.env.MAIL_PASS,
+                    user: "codehelpdummy1@gmail.com",
+                    pass: "dzgvtybtweasxrqd",
                 }
             })
             console.log("I'm here")

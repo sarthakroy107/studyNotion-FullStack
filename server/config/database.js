@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 exports.connect = () => {
-    mongoose.connect(process.env.MONGODB, {
+    mongoose.connect("mongodb+srv://sarthakroy2003:JeARNLB0S5vQrx0w@cluster0.sgimdgj.mongodb.net/studyNotion", {
         useNewUrlParser: true,
         useUnifiedTopology:true,
     })
