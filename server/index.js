@@ -26,7 +26,7 @@ db.connect();
 
 app.use(
 	cors({
-		origin:"https://study-notion-sarthak-roy.vercel.app/",
+		origin:"http://127.0.0.1:5173",
 		credentials:true,
 	})
 )
