@@ -132,6 +132,7 @@ exports.login = async (req, res) => {
         //fetch data from req body
         const {email, password} = req.body;
 
+        console.log("I'm here")
         //check if user does not exist
         const checkUser = await User.findOne({email});
         if(!checkUser) {
@@ -140,6 +141,8 @@ exports.login = async (req, res) => {
                 message: "User does not exists"
             });
         }
+        console.log(checkUser);
+
         //check password
         console.log(`Password from DB: ${checkUser.password}`)
         const checkPassword = await bcrypt.compare(password, checkUser.password);
@@ -155,14 +158,16 @@ exports.login = async (req, res) => {
             role: checkUser.role,
             token: "",
         }
+        console.log("Token")
         //generate token
         const token = jwt.sign({ email: checkUser.email, id: checkUser._id, role: checkUser.role }, 
-            sarthak107, {
+            "sarthak107", {
             expiresIn: "24h"
         });
+        console.log(`User token: ${token}`)
         checkUser.token = token;
         checkUser.password = undefined;
-
+        console.log(`User token: ${checkUser.token}`)
         //create cookie and send response
         const options = {
             expires: new Date(Date.now() + 24*60*60*1000),
