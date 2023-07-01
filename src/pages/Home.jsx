@@ -26,6 +26,10 @@ const Home = () => {
                 </div>
             </ul>
             <p>Most of the above will be available within <span className='font-bold text-lg text-white'>July 10</span></p>
+            <p className='text-lg text-white font-semibold'>Update:</p>
+            <ul>
+                <li>1. Login added(July 1)</li>
+            </ul>
             </div>
         </div>
         <div className='w-full min-h-[50vh] flex flex-col justify-around items-center'>
