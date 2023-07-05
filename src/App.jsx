@@ -7,6 +7,8 @@ import Signup from './pages/Signup'
 import VerifyEmail from './pages/VerifyEmail'
 import Login from './pages/Login'
 import MyProfile from './components/core/Dashboard/MyProfile'
+import Category from './pages/Category'
+import CourseDetails from './pages/CourseDetails'
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path='/verify-email' element={<VerifyEmail/>} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/dashboard/my-profile' element={<MyProfile/>} />
+        <Route path ='/category/:id' element={<Category/>} />
+        <Route path='/course/:id' element={<CourseDetails/>} />
       </Routes>
     </main>
   )
