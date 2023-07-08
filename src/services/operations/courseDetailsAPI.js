@@ -27,7 +27,6 @@ export const getCourseDetails = async (courseId) => {
         const response = await apiConnector("POST", COURSE_DETAILS_API, {
             courseId
         })
-        console.log("Response: " + response);
         result = response
         return result
     }

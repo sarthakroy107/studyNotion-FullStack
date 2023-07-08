@@ -9,7 +9,7 @@ import CodingBlocks from '../components/core/HomePage/CodingBlocks'
 const Home = () => {
   return (
     <main className='min-h-screen w-full flex flex-col items-center bg-richblack-900'>
-        <div className='text-richblack-100 font-semibold border-2 border-richblack-300 mt-12 p-4 rounded-md
+        {/* <div className='text-richblack-100 font-semibold border-2 border-richblack-300 mt-12 p-4 rounded-md
         shadow-[10px_10px_10px_0px_rgba(225,225,225,0.8)]'>
             <p>I'm actively working on this project while learning new concepts</p>
             <p>Front-end is only ~20% and Back-end ~80% complete</p>
@@ -31,7 +31,7 @@ const Home = () => {
                 <li>1. Login added(July 1)</li>
             </ul>
             </div>
-        </div>
+        </div> */}
         <div className='w-full min-h-[50vh] flex flex-col justify-around items-center'>
             <NavLink>
                 <div className=' group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200
