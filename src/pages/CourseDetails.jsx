@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getCourseDetails } from '../services/operations/courseDetailsAPI';
 import {AiFillStar, AiOutlineInfoCircle, AiOutlineShareAlt} from "react-icons/ai"
-import { apiConnector } from '../services/apiconnector';
-import { profileEndpoints } from '../services/api';
 import Dates from '../components/common/Dates';
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from '../slices/cartSlice';
 
 const CourseDetails = () => {
     const [response, setResponse] = useState("");
     const [avgRating, setAvgRating] = useState("")
     const [educatorDetails, setEducatorDetails] = useState("")
     const {id} = useParams();
+    const {cart, total, totalItems} = useSelector((state)=> state.cart);
+    const dispatch = useDispatch();
     
     useEffect(()=>{
         (async ()=>{
@@ -29,8 +31,11 @@ const CourseDetails = () => {
 
 
     useEffect( ()=>{
-    }, [response])
-
+    }, [response]) 
+    const handleAddToCart = () => {
+        dispatch(addToCart(response));
+        console.log("I'm in func")
+    }
   return (
     <main className='w-full bg-richblack-800 flex flex-col justify-center items-center text-richblack-300 pt-16'>
         <div className='w-4/5 my-20 flex'>
@@ -59,7 +64,8 @@ const CourseDetails = () => {
                         <button className='w-full bg-yellow-300 rounded-lg py-2 text-richblack-800 font-semibold text-xl'>
                             Buy Now
                         </button>
-                        <button className='w-full bg-richblack-800 rounded-lg py-2 text-richblack-100 font-semibold text-xl'>
+                        <button onClick={()=>handleAddToCart()}
+                        className='w-full bg-richblack-800 rounded-lg py-2 text-richblack-100 font-semibold text-xl'>
                             Add to Cart
                         </button>
                         <div className='flex flex-col justify-center items-center gap-2'>
