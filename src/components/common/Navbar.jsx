@@ -4,6 +4,8 @@ import logo from "../../../assets/Logo/Logo-Full-Light.png"
 import {NavbarLinks} from "../../../data/navbar-links"
 import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/api'
+import { useSelector } from 'react-redux'
+import {AiOutlineShoppingCart, AiFillCaretDown} from 'react-icons/ai'
 
 const Navbar = () => {
     const location = useLocation();
@@ -11,6 +13,7 @@ const Navbar = () => {
     const getMatch = (route) => {
         return matchPath({path: route}, location.pathname);
     }
+    const {user} = useSelector((state)=> state.profile);
     const [subLinks, setSubLinks] = useState([])
     const fetchlinkData = async () => {
         try{
@@ -42,7 +45,7 @@ const Navbar = () => {
                             {
                                 link.title === "Catalog" ?(
                                 <div className='relative flex items-center gap-2 group'>
-                                    <p>{link.title}</p>
+                                    <p className='flex gap-1'>{link.title} <AiFillCaretDown className='relative top-[0.35rem]'/></p>
                                     <div className='invisible absolute left-[50%]
                                     translate-x-[-61%] translate-y-[45%]
                                     top-[50%]
@@ -85,17 +88,25 @@ const Navbar = () => {
                 }
             </ul>
         </nav>
-
-        <div className='flex gap-5'>
-            <NavLink  to={"/login"} >
-                <button className='bg-richblack-700 text-richblack-50 font-semibold rounded-md p-1 px-4 
-                border border-richblack-100'>Log in</button>
-            </NavLink>
-            <NavLink to={"/signup"} >
-                <button className='bg-richblack-700 text-richblack-50 font-semibold rounded-md p-1 px-4 
-                border border-richblack-100'>Sign up</button>
-            </NavLink>
-        </div>
+        {
+            user ? (
+            <div className='flex gap-5'>
+                <AiOutlineShoppingCart className='text-richblack-100 relative top-[0.30rem] w-12 scale-150'/>
+                <span className=''><img className='rounded-full w-7' src={user.image} alt="" /></span>
+            </div>
+            ) : (
+                <div className='flex gap-5'>
+                <NavLink  to={"/login"} >
+                    <button className='bg-richblack-700 text-richblack-50 font-semibold rounded-md p-1 px-4 
+                    border border-richblack-100'>Log in</button>
+                </NavLink>
+                <NavLink to={"/signup"} >
+                    <button className='bg-richblack-700 text-richblack-50 font-semibold rounded-md p-1 px-4 
+                    border border-richblack-100'>Sign up</button>
+                </NavLink>
+            </div>
+            )
+        }
     </div>
   )
 }
