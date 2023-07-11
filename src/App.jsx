@@ -9,6 +9,8 @@ import Login from './pages/Login'
 import MyProfile from './components/core/Dashboard/MyProfile'
 import Category from './pages/Category'
 import CourseDetails from './pages/CourseDetails'
+import PrivateRoute from './components/core/Dashboard/PrivateRoute'
+import Dashboard from './pages/Dashboard'
 
 
 function App() {
@@ -21,9 +23,18 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/verify-email' element={<VerifyEmail/>} />
         <Route path='/login' element={<Login/>}/>
-        <Route path='/dashboard/my-profile' element={<MyProfile/>} />
         <Route path ='/category/:id' element={<Category/>} />
         <Route path='/course/:id' element={<CourseDetails/>} />
+        <Route element={
+          <PrivateRoute>
+            <Dashboard/>
+          </PrivateRoute>
+        }>
+          <Route path='dashboard/my-profile' element={<MyProfile/>} />
+          <Route path='dashboard/enrolled-courses'/>
+          <Route path='dashboard/settings' />
+          <Route path='dashboard/add-course' />
+        </Route>
       </Routes>
     </main>
   )
