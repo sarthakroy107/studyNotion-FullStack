@@ -12,6 +12,7 @@ const Settings = () => {
   const {user} = useSelector((state)=>state.profile)
   const {token} = useSelector((state)=>state.auth)
   const dispatch = useDispatch();
+  const [toggle, setToggle] = useState(true)
 
   const handleOnClick = () => {
     imageRef.current.click();
@@ -43,7 +44,7 @@ const Settings = () => {
     toast.dismiss(toastId)
   }
   useEffect(()=>{
-
+    imageFile !== null ? (setToggle(false)) : (setToggle(true))
   }, [imageFile])
   
   return (
@@ -61,7 +62,7 @@ const Settings = () => {
                   imageFile === null ? ("Select image") : ("Selected")
                 }
               </button>
-              <button onClick={handleDPUpload} className=' bg-yellow-300 text-richblack-800 p-2 
+              <button disabled={toggle} onClick={handleDPUpload} className=' bg-yellow-300 text-richblack-800 p-2 
               px-4 font-medium text-lg flex gap-2 rounded-lg'>
                 <GrUpload className='relative top-[0.30rem]'/>Upload
               </button>

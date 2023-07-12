@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { NavLink, matchPath, useLocation } from 'react-router-dom'
 import logo from "../../../assets/Logo/Logo-Full-Light.png"
 import {NavbarLinks} from "../../../data/navbar-links"
@@ -6,15 +6,25 @@ import { apiConnector } from '../../services/apiconnector'
 import { categories } from '../../services/api'
 import { useSelector } from 'react-redux'
 import {AiOutlineShoppingCart, AiFillCaretDown} from 'react-icons/ai'
+import {BiSolidDashboard, BiLogOut} from 'react-icons/bi'
 
 const Navbar = () => {
     const location = useLocation();
+    const [visible, setVisible] = useState(false);
+    const {user} = useSelector((state)=> state.profile);
+    const [subLinks, setSubLinks] = useState([])
+    const ref = useRef(null)
 
     const getMatch = (route) => {
         return matchPath({path: route}, location.pathname);
     }
-    const {user} = useSelector((state)=> state.profile);
-    const [subLinks, setSubLinks] = useState([])
+
+    const listener = (event) => {
+        if (!ref.current || ref.current.contains(event.target)) {
+            return;
+        }
+        setVisible(false)
+    }
     const fetchlinkData = async () => {
         try{
             const result  = await apiConnector("GET", categories.CATEGORIES_API)
@@ -26,9 +36,20 @@ const Navbar = () => {
             console.log("Could not fetch category list")
         }
     }
+
     useEffect(() => {
         fetchlinkData();
     }, []);
+    // useEffect(()=>{
+    //     console.log("Hello")
+    //     {
+    //         visible === true ? (
+    //             document.addEventListener("click", listener)
+    //         ) : (
+    //             document.removeEventListener("mousedown", listener)
+    //         )
+    //     }
+    // }, [visible])
   return (
     <div className='h-[7vh] bg-richblack-900 border-b flex border-white items-center justify-around'>
         <div>
@@ -92,7 +113,21 @@ const Navbar = () => {
             user ? (
             <div className='flex gap-5'>
                 <AiOutlineShoppingCart className='text-richblack-100 relative top-2 w-12 scale-150'/>
-                <span className=''><img className='rounded-full w-8 h-8 object-cover' src={user.image} alt="" /></span>
+                <div className=''>
+                    <div onClick={()=>{setVisible(!visible)}} >
+                        <img  className='rounded-full w-8 h-8 object-cover' src={user.image} alt="" />
+                    </div>
+                    <div ref={ref} className={`${visible?"absolute":"hidden"} text-richblack-100 top-12 
+                    border border-richblack-300/50 rounded-lg bg-richblack-700 p-2`}> 
+                        <NavLink to={'/dashboard/my-profile'}>
+                            <p className='flex gap-2 hover:bg-richblack-400 rounded-md p-1 px-2'>
+                                <BiSolidDashboard className='relative top-1'/>Dashboard
+                            </p>
+                        </NavLink>
+                        <div className='bg-richblack-300/40 h-[1px] my-1'></div>
+                        <p className='flex gap-2 p-1 px-2 hover:bg-richblack-400 rounded-md'><BiLogOut className='relative top-1 scale-105'/>Logout</p>
+                    </div>
+                </div>
             </div>
             ) : (
                 <div className='flex gap-5'>
