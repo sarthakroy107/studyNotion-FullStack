@@ -91,8 +91,8 @@ const Navbar = () => {
         {
             user ? (
             <div className='flex gap-5'>
-                <AiOutlineShoppingCart className='text-richblack-100 relative top-[0.30rem] w-12 scale-150'/>
-                <span className=''><img className='rounded-full w-7' src={user.image} alt="" /></span>
+                <AiOutlineShoppingCart className='text-richblack-100 relative top-2 w-12 scale-150'/>
+                <span className=''><img className='rounded-full w-8 h-8 object-cover' src={user.image} alt="" /></span>
             </div>
             ) : (
                 <div className='flex gap-5'>

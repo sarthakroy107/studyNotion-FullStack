@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {FaRegEdit} from 'react-icons/fa'
@@ -10,7 +10,6 @@ const MyProfile = () => {
     console.log(user)
     const navigate = useNavigate();
     const email = user?.email
-    const [deatils, setDeatils] = useState();
     
       return (
         <main className='w-full min-h-screen bg-richblack-900 text-richblack-50 flex justify-center items-center'>
@@ -18,7 +17,7 @@ const MyProfile = () => {
                 <h2 className='text-3xl font-semibold'>My Profile</h2>
                 <div className='flex justify-between bg-richblack-800 rounded-lg p-6 px-9'>
                     <div className='flex gap-5'>
-                        <div><img src={user.image} className='w-20 rounded-full' alt="" /></div>
+                        <div><img src={user.image} className='w-20 h-20 object-cover rounded-full' alt="" /></div>
                         <div className='flex flex-col justify-center gap-1'>
                             <p className='text-3xl font-semibold'>{user.firstname} {user.lastname}</p>
                             <p className='text-lg text-richblack-400'>{user.email}</p>
