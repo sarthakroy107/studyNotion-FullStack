@@ -5,6 +5,7 @@ import { settingsEndpoints } from '../../../services/api';
 import { setUser } from "../../../slices/profileSlice"
 import { toast } from 'react-hot-toast';
 import {GrUpload} from 'react-icons/gr'
+const genders = ["Male", "Female", "Non-Binary", "Prefer not to say", "Other"]
 
 const Settings = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -13,10 +14,40 @@ const Settings = () => {
   const {token} = useSelector((state)=>state.auth)
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true)
+  const [dataForm, setDataForm] = useState({
+    firstname: user.firstname,
+    lastname: user.lastname,
+    gender: user.profile.gender,
+    dateOfBirth: user.profile.dateOfBirth,
+    mobileNumber: user.profile.mobileNumber,
+    about: user.profile.about,
+  })
+
+  const handleFormDataChange = (e) => {
+    setDataForm({...dataForm, [e.target.name]: e.target.value})
+    console.log(dataForm)
+  }
+
+  const handleSubmitFormData = async (e) =>  {
+    e.preventDefault()
+    const toastId = toast.loading("Loading")
+    try{
+      const res = await apiConnector("PUT", settingsEndpoints.UPDATE_PROFILE_API, dataForm, {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      })
+      console.log(res)
+    }
+    catch(err) {
+      console.log(err)
+    }
+    toast.dismiss(toastId)
+  }
 
   const handleOnClick = () => {
     imageRef.current.click();
   }
+
   const handleDPUpload = async () => {
     const toastId = toast.loading("Changing profile picture")
     const formData = new FormData();
@@ -31,9 +62,12 @@ const Settings = () => {
           console.log(res?.data?.data)
           const userSting = localStorage.getItem("user")
           const user = JSON.parse(userSting)
+
           user.image = res?.data?.data
+
           localStorage.removeItem("user");
           localStorage.setItem('user', JSON.stringify(user));
+          
           toast.success("Profile picture changed successfully")
           window.location.reload() 
       }
@@ -68,6 +102,63 @@ const Settings = () => {
               </button>
             </div>
           </div>
+        </div>
+        <div className='my-5'>
+          <form onSubmit={handleSubmitFormData} className='grid grid-cols-2 gap-6 p-9 rounded-lg bg-richblack-800' >
+            <div className='flex flex-col'>
+              <label>First name</label>
+              <input type="text" onChange={handleFormDataChange}
+              className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
+              name="firstname" 
+              id="firstname"
+              defaultValue={user.firstname} />
+            </div>
+            <div className='flex flex-col'>
+              <label>Last name</label>
+              <input type="text" onChange={handleFormDataChange}
+              className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
+              name="lastname" 
+              id="lastname"
+              defaultValue={user.lastname} />
+            </div>
+            <div className='flex flex-col'>
+              <label>Mobile number</label>
+              <input type="number" onChange={handleFormDataChange}
+              className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
+              name="mobileNumber" 
+              id="mobileNumber"
+              defaultValue={user.profile.mobileNumber} />
+            </div>
+            <div className='flex flex-col'>
+              <label>Date of Birth</label>
+              <input type="date" onChange={handleFormDataChange}
+              className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
+              name="dateOfBirth" 
+              id="dateOfBirth"
+              defaultValue={user.profile.dateOfBirth} />
+            </div>
+            <div className='flex flex-col'>
+              <label>Gender</label>
+              <select name="gender" onChange={handleFormDataChange}
+              className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'>
+                  {
+                    genders.map((ele, i)=> (
+                      <option key={i} value={ele}>{ele}</option>
+                    ))
+                  }
+                  
+              </select>
+            </div>
+            <div className='flex flex-col'>
+              <label>About</label>
+              <input type="text" onChange={handleFormDataChange}
+              className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
+              name="about" 
+              id="about"
+              defaultValue={user.profile.about} />
+            </div>
+            <button className='bg-yellow-300 rounded-lg p-2 px-4 w-fit text-richblack-900 font-medium my-4'>Submit</button>
+          </form>
         </div>
       </div>
     </main>

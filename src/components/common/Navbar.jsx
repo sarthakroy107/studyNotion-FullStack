@@ -13,18 +13,13 @@ const Navbar = () => {
     const [visible, setVisible] = useState(false);
     const {user} = useSelector((state)=> state.profile);
     const [subLinks, setSubLinks] = useState([])
-    const ref = useRef(null)
+    const mouseRef = useRef(null)
 
     const getMatch = (route) => {
         return matchPath({path: route}, location.pathname);
     }
 
-    const listener = (event) => {
-        if (!ref.current || ref.current.contains(event.target)) {
-            return;
-        }
-        setVisible(false)
-    }
+    
     const fetchlinkData = async () => {
         try{
             const result  = await apiConnector("GET", categories.CATEGORIES_API)
@@ -36,20 +31,22 @@ const Navbar = () => {
             console.log("Could not fetch category list")
         }
     }
+    
+    useEffect(()=>{
+        let handler = (event) => {
+            if(!mouseRef.current.contains(event.target)) {
+                setVisible(false);
+            }
+        }
+        document.addEventListener("mousedown", handler)
+        return () => {
+            document.removeEventListener("mousedown", handler)
+        }
+    })
 
     useEffect(() => {
         fetchlinkData();
     }, []);
-    // useEffect(()=>{
-    //     console.log("Hello")
-    //     {
-    //         visible === true ? (
-    //             document.addEventListener("click", listener)
-    //         ) : (
-    //             document.removeEventListener("mousedown", listener)
-    //         )
-    //     }
-    // }, [visible])
   return (
     <div className='h-[7vh] bg-richblack-900 border-b flex border-white items-center justify-around'>
         <div>
@@ -117,10 +114,10 @@ const Navbar = () => {
                     <div onClick={()=>{setVisible(!visible)}} >
                         <img  className='rounded-full w-8 h-8 object-cover' src={user.image} alt="" />
                     </div>
-                    <div ref={ref} className={`${visible?"absolute":"hidden"} text-richblack-100 top-12 
+                    <div ref={mouseRef} className={`${visible?"absolute":"hidden"} text-richblack-100 top-12 
                     border border-richblack-300/50 rounded-lg bg-richblack-700 p-2`}> 
                         <NavLink to={'/dashboard/my-profile'}>
-                            <p className='flex gap-2 hover:bg-richblack-400 rounded-md p-1 px-2'>
+                            <p onClick={()=>{setVisible(false)}} className='flex gap-2 hover:bg-richblack-400 rounded-md p-1 px-2'>
                                 <BiSolidDashboard className='relative top-1'/>Dashboard
                             </p>
                         </NavLink>
