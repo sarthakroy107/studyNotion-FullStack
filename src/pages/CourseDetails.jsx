@@ -5,6 +5,7 @@ import {AiFillStar, AiOutlineInfoCircle, AiOutlineShareAlt} from "react-icons/ai
 import Dates from '../components/common/Dates';
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from '../slices/cartSlice';
+import { buyCourse } from '../services/operations/paymentApi';
 
 const CourseDetails = () => {
     const [response, setResponse] = useState("");
@@ -12,8 +13,14 @@ const CourseDetails = () => {
     const [educatorDetails, setEducatorDetails] = useState("")
     const {id} = useParams();
     const {cart, total, totalItems} = useSelector((state)=> state.cart);
+    const {user} = useSelector((state)=>state.profile)
+    const { token } = useSelector((state)=>state.auth)
     const dispatch = useDispatch();
     
+    const handleBuyNow = ()=> {
+        buyCourse(token, [id], user,)
+    }
+
     useEffect(()=>{
         (async ()=>{
             try{
@@ -61,7 +68,7 @@ const CourseDetails = () => {
                     <div className='w-4/5 flex flex-col gap-6'>
                         <img className='rounded-lg scale-105' src={response.thumbnail} alt="thubnail" />
                         <p className='text-3xl font-bold text-richblack-25 my-2'>Rs. {response.price}</p>
-                        <button className='w-full bg-yellow-300 rounded-lg py-2 text-richblack-800 font-semibold text-xl'>
+                        <button onClick={()=>handleBuyNow()} className='w-full bg-yellow-300 rounded-lg py-2 text-richblack-800 font-semibold text-xl'>
                             Buy Now
                         </button>
                         <button onClick={()=>handleAddToCart()}
