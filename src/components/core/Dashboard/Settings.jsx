@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { apiConnector } from '../../../services/apiconnector';
 import { settingsEndpoints } from '../../../services/api';
 import { setUser } from "../../../slices/profileSlice"
@@ -12,7 +12,6 @@ const Settings = () => {
   const imageRef = useRef(null);
   const {user} = useSelector((state)=>state.profile)
   const {token} = useSelector((state)=>state.auth)
-  const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true)
   const [dataForm, setDataForm] = useState({
     firstname: user.firstname,
