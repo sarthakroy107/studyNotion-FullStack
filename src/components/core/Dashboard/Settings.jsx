@@ -24,7 +24,6 @@ const Settings = () => {
 
   const handleFormDataChange = (e) => {
     setDataForm({...dataForm, [e.target.name]: e.target.value})
-    console.log(dataForm)
   }
 
   const handleSubmitFormData = async (e) =>  {
@@ -35,13 +34,31 @@ const Settings = () => {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       })
-      console.log(res)
+
+      console.log(res?.data?.data)
+
+      const userSting = localStorage.getItem("user")
+      const user = JSON.parse(userSting)
+      user.firstname = res?.data?.data?.userChange?.firstname
+      user.lastname = res?.data?.data?.userChange?.lastname
+      user.profile.about = res?.data?.data?.newData?.about
+      user.profile.dateOfBirth = res?.data?.data?.newData?.dateOfBirth
+      user.profile.gender = res?.data?.data?.newData?.gender
+      user.profile.mobileNumber = res?.data?.data?.newData?.mobileNumber
+
+      localStorage.removeItem("user");
+      localStorage.setItem('user', JSON.stringify(user));
+          
+      toast.success("Profile picture changed successfully")
+      window.location.reload() 
     }
     catch(err) {
       console.log(err)
     }
     toast.dismiss(toastId)
   }
+
+
 
   const handleOnClick = () => {
     imageRef.current.click();
@@ -81,9 +98,9 @@ const Settings = () => {
   }, [imageFile])
   
   return (
-    <main className='w-full min-h-screen text-richblack-100 flex justify-center items-center'>
+    <main className='w-full min-h-screen bg-richblack-900 text-richblack-100 flex justify-center items-center'>
       <div className='w-5/6'>
-        <h2 className='text-3xl mb-12'>Update Profile</h2>
+        <h2 className='text-3xl my-12'>Update Profile</h2>
         <div className='flex gap-12 bg-richblack-800 rounded-lg p-7 px-12'>
           <img className='w-28 h-28 rounded-full object-cover' src={user.image} alt="" />
           <div>
@@ -104,7 +121,7 @@ const Settings = () => {
         </div>
         <div className='my-5'>
           <form onSubmit={handleSubmitFormData} className='grid grid-cols-2 gap-6 p-9 rounded-lg bg-richblack-800' >
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
               <label>First name</label>
               <input type="text" onChange={handleFormDataChange}
               className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
@@ -112,7 +129,7 @@ const Settings = () => {
               id="firstname"
               defaultValue={user.firstname} />
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
               <label>Last name</label>
               <input type="text" onChange={handleFormDataChange}
               className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
@@ -120,7 +137,7 @@ const Settings = () => {
               id="lastname"
               defaultValue={user.lastname} />
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
               <label>Mobile number</label>
               <input type="number" onChange={handleFormDataChange}
               className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
@@ -128,7 +145,7 @@ const Settings = () => {
               id="mobileNumber"
               defaultValue={user.profile.mobileNumber} />
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
               <label>Date of Birth</label>
               <input type="date" onChange={handleFormDataChange}
               className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
@@ -136,9 +153,9 @@ const Settings = () => {
               id="dateOfBirth"
               defaultValue={user.profile.dateOfBirth} />
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
               <label>Gender</label>
-              <select name="gender" onChange={handleFormDataChange}
+              <select name="gender" onChange={handleFormDataChange} defaultValue={user.profile.gender}
               className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'>
                   {
                     genders.map((ele, i)=> (
@@ -148,7 +165,7 @@ const Settings = () => {
                   
               </select>
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col gap-3'>
               <label>About</label>
               <input type="text" onChange={handleFormDataChange}
               className='bg-richblack-700 rounded-lg outline-none px-4 p-2 font-medium text-lg'
