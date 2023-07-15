@@ -12,6 +12,7 @@ import CourseDetails from './pages/CourseDetails'
 import PrivateRoute from './components/core/Dashboard/PrivateRoute'
 import Dashboard from './pages/Dashboard'
 import Settings from './components/core/Dashboard/Settings'
+import EnrolledCourses from './components/core/Dashboard/EnrolledCourses'
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
           </PrivateRoute>
         }>
           <Route path='dashboard/my-profile' element={<MyProfile/>} />
-          <Route path='dashboard/enrolled-courses'/>
+          <Route path='dashboard/enrolled-courses' element={<EnrolledCourses/>}/>
           <Route path='dashboard/settings' element={<Settings/>} />
           <Route path='dashboard/add-course' />
         </Route>
