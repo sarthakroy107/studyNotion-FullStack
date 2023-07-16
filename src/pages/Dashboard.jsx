@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import {VscAccount, VscSettingsGear} from 'react-icons/vsc'
+import {VscAccount, VscSettingsGear, VscAdd} from 'react-icons/vsc'
 import {FaGraduationCap} from 'react-icons/fa'
 import {IoIosLogOut} from 'react-icons/io'
 
@@ -25,6 +25,18 @@ const Dashboard = () => {
                 <div className='ml-3 py-2 flex gap-2'>
                     <FaGraduationCap className='relative top-[0.30rem]'/>Enrolled course
                 </div>
+                </NavLink>
+            </div>
+            <div className='h-[1px] mx-2 bg-richblack-300/25'></div>
+            <div className='my-7 flex flex-col gap-2'>
+                <NavLink to={'/dashboard/add-course'} className={({ isActive }) =>
+                    isActive ? "group text-yellow-300 bg-yellow-300/10 font-bold" : ""
+                    }  >
+                    <div className='flex'>
+                        <div className=' ml-3 flex py-2 gap-2'>
+                            <VscAdd className='relative top-[0.30rem]'/>Add course
+                        </div>
+                    </div>
                 </NavLink>
             </div>
             <div className='h-[1px] mx-2 bg-richblack-300/25'></div>
