@@ -93,10 +93,12 @@ const Settings = () => {
       }
     toast.dismiss(toastId)
   }
+  
   useEffect(()=>{
     imageFile !== null ? (setToggle(false)) : (setToggle(true))
   }, [imageFile])
   
+
   return (
     <main className='w-full min-h-screen bg-richblack-900 text-richblack-100 flex justify-center items-center'>
       <div className='w-5/6'>

@@ -15,6 +15,7 @@ import Settings from './components/core/Dashboard/Settings'
 import EnrolledCourses from './components/core/Dashboard/EnrolledCourses'
 import CreateCourse1 from './components/core/Dashboard/createCourse/CreateCourse1'
 import AddCourse from './components/core/Dashboard/createCourse/AddCourse'
+import AddSection from './components/core/Dashboard/createCourse/AddSection'
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path='dashboard/enrolled-courses' element={<EnrolledCourses/>}/>
           <Route path='dashboard/settings' element={<Settings/>} />
           <Route path='dashboard/create-course-1' element={<CreateCourse1/>} />
+          <Route path='dashboard/edit-course/:id' element={<AddSection/>} />
           <Route path='dashboard/add-course' element={<AddCourse/>}/>
         </Route>
       </Routes>
