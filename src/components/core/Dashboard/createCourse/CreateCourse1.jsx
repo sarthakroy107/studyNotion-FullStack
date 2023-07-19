@@ -27,12 +27,13 @@ const CreateCourse1 = () => {
     const handleOnSubmit = async (e) => {
         e.preventDefault();
         try{
+            console.log(courseDetails)
             const res = await apiConnector("POST", courseEndpoints.CREATE_COURSE_API, courseDetails, {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${token}`,
             })
             const courseId = res?.data?.data;
-            navigate(`/dashboard/edit-course/${courseId}`)
+            navigate(`/dashboard/add-section/${courseId}`)
 
         }catch(err) {
             console.log(err);

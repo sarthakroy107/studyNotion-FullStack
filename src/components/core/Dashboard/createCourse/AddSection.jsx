@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { apiConnector } from '../../../../services/apiconnector';
 import { courseEndpoints } from '../../../../services/api';
 import {RiAddCircleLine, RiEdit2Line, RiDeleteBin6Line} from 'react-icons/ri'
@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 
 const AddSection = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [sectionName, setSectionName] = useState("")
     const {token} = useSelector((state)=>state.auth)
     const [sections, setSections] = useState([]);
@@ -77,6 +78,9 @@ const AddSection = () => {
                     <div key={id} className='group flex w-full justify-between text-xl hover:text-richblack-5
                      h-10 hover:border-y hover:border-white/20 pt-1'>
                         {
+                            sectionCount===0 ? (<p>No sections</p>) : (<></>)
+                        }
+                        {
                             edit !== id ? (
                                 <>
                                 <p>{id+1}. {s.sectionName}</p>
@@ -121,7 +125,8 @@ const AddSection = () => {
             </button>
         </form>
         <button disabled={sectionCount>0 ? (false): (true)} className={` ${sectionCount>0 ? ("bg-yellow-300"): ("bg-yellow-200/50")}
-        p-2 px-4 rounded-lg text-richblack-700 font-semibold text-2xl`}>
+        p-2 px-4 rounded-lg text-richblack-700 font-semibold text-2xl`}
+        onClick={()=>{navigate(`/dashboard/add-subsection/${id}`)}}>
             Next
         </button>
     </main>
