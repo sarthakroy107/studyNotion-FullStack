@@ -38,9 +38,11 @@ const CreateCourse1 = () => {
             console.log(err);
         }
     }
+    
     useEffect(()=>{
         fetchCategories();
     }, [])
+
     useEffect(()=>{
         console.log(categories)
         console.log(courseDetails)

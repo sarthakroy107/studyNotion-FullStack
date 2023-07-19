@@ -10,6 +10,10 @@ const AddSection = () => {
     const [sectionName, setSectionName] = useState("")
     const {token} = useSelector((state)=>state.auth)
     const [sections, setSections] = useState([]);
+    const [edit, setEdit] = useState(-1)
+    const [editSectionName, setEditSectionName] = useState("")
+    const [sectionCount, setSectionCount] = useState(0)
+    
 
     const handleOnSubmit = async (e) => {
         e.preventDefault()
@@ -19,12 +23,11 @@ const AddSection = () => {
         })
         setSectionName("")
         fetchSections();
-        console.log(res)
     }
 
     const handleDeleteSection = async ({sectionId}) => {
         try{
-            await apiConnector("POST", courseEndpoints.DELETE_SECTION_API, {sectionId, courseId: id}, {
+            await apiConnector("POST", courseEndpoints.DELETE_SECTION_API, {sectionId, sectionName: editSectionName}, {
                 Authorization: `Bearer ${token}`,
             })
             fetchSections();
@@ -33,12 +36,15 @@ const AddSection = () => {
         }
     }
 
-    const handleEditSection = async ({sectionId, }) => {
+    const handleEditSection = async ({sectionId}) => {
         try{
-            await apiConnector("POST", courseEndpoints.DELETE_SECTION_API, {sectionId, courseId: id}, {
+            await apiConnector("POST", courseEndpoints.UPDATE_SECTION_API, {sectionId, sectionName: editSectionName}, {
                 Authorization: `Bearer ${token}`,
             })
             fetchSections();
+            setEditSectionName("")
+            setEdit(-1)
+
         }catch(err) {
             console.log(err);
         }
@@ -52,35 +58,51 @@ const AddSection = () => {
         setSections(res.data.data.courseSection)
         console.log(res.data.data.courseSection)
     }
+
     useEffect(()=>{
         fetchSections();
     }, [])
 
     useEffect(()=>{
-
-    }, [sections])
+        setSectionCount(sections.length)
+        console.log(sectionCount)
+    }, [sections, edit, sectionCount])
         
   return (
     <main className='w-full min-h-screen flex flex-col gap-5 items-center'>
         <div className='w-3/5 text-3xl font-semibold mt-12'><h2>Add Sections</h2></div>
-        <div className='w-3/5 bg-richblack-800 flex flex-col gap-5 p-8 rounded-lg text-richblack-300/75'>
+        <div className='w-3/5 bg-richblack-800 flex flex-col gap-1 p-8 rounded-lg text-richblack-300/75'>
             {
                 sections.map((s, id)=>(
                     <div key={id} className='group flex w-full justify-between text-xl hover:text-richblack-5
-                     h-9 hover:border-y hover:border-white/20'>
-                        {s.sectionName}
-                        <div className='flex text-xl gap-4'>
-                          <div onClick={()=>handleEditSection({sectionId: s._id})}
-                        className='hidden group-hover:block hover:bg-white/30 group-hover:text-richblack-50/75
-                           hover:text-white/50 p-2 rounded-full cursor-pointer' >
-                            <RiEdit2Line/> 
-                        </div>
-                         <div onClick={()=>handleDeleteSection({sectionId: s._id})}
-                        className='hidden group-hover:block hover:bg-red-400/30 group-hover:text-richblack-50/75
-                          hover:text-red-700/50 p-2 rounded-full cursor-pointer'>
-                            <RiDeleteBin6Line/>
-                        </div>
-                        </div>
+                     h-10 hover:border-y hover:border-white/20 pt-1'>
+                        {
+                            edit !== id ? (
+                                <>
+                                <p>{id+1}. {s.sectionName}</p>
+                                <div className='flex gap-3'>
+                                    <div onClick={()=>setEdit(id)}
+                                    className='hover:bg-richblack-50/50 p-1 px-2 rounded-full'>
+                                        <RiEdit2Line className='relative top-1'/>
+                                    </div>
+                                    <div onClick={()=>handleDeleteSection({sectionId: s._id})}
+                                     className=' hover:bg-red-500/20 hover:text-red-700/50 p-1 px-2 rounded-full'>
+                                        <RiDeleteBin6Line className='relative top-1'/>
+                                    </div>
+                                </div>
+                                </>
+                            ) : (
+                                <div className='flex gap-3 p-[0.20rem]'>
+                                    <input onChange={(e)=>setEditSectionName(e.target.value)}
+                                     className='bg-richblack-700 rounded-md' type="text" required/>
+                                    <button onClick={()=>handleEditSection({sectionId: s._id})}
+                                    className='bg-yellow-300 text-sm text-richblack-800 px-2 rounded-lg'>
+                                        Save
+                                    </button>
+                                </div>
+                            )
+                        }
+                        
                     </div>
                 ))
             }
@@ -98,6 +120,10 @@ const AddSection = () => {
                 <RiAddCircleLine className='relative top-1 mr-1'/>Add
             </button>
         </form>
+        <button disabled={sectionCount>0 ? (false): (true)} className={` ${sectionCount>0 ? ("bg-yellow-300"): ("bg-yellow-200/50")}
+        p-2 px-4 rounded-lg text-richblack-700 font-semibold text-2xl`}>
+            Next
+        </button>
     </main>
   )
 }
