@@ -17,6 +17,7 @@ import CreateCourse1 from './components/core/Dashboard/createCourse/CreateCourse
 import AddCourse from './components/core/Dashboard/createCourse/AddCourse'
 import AddSection from './components/core/Dashboard/createCourse/AddSection'
 import AddSubSection from './components/core/Dashboard/createCourse/AddSubSection'
+import Publish from './components/core/Dashboard/createCourse/Publish'
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path='dashboard/add-section/:id' element={<AddSection/>} />
           <Route path='dashboard/add-subsection/:id' element={<AddSubSection/>} />
           <Route path='dashboard/add-course' element={<AddCourse/>}/>
+          <Route path='dashboard/publish-course' element={<Publish/>} />
         </Route>
       </Routes>
     </main>
