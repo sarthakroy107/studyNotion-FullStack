@@ -44,7 +44,7 @@ function App() {
           <Route path='dashboard/add-section/:id' element={<AddSection/>} />
           <Route path='dashboard/add-subsection/:id' element={<AddSubSection/>} />
           <Route path='dashboard/add-course' element={<AddCourse/>}/>
-          <Route path='dashboard/publish-course' element={<Publish/>} />
+          <Route path='dashboard/publish-course/:id' element={<Publish/>} />
         </Route>
       </Routes>
     </main>

@@ -111,7 +111,8 @@ const CreateCourse1 = () => {
                 required/>
             </div>
             <div>
-                <button className='bg-yellow-300 text-richblack-800 p-1 px-3 text-lg rounded-lg font-medium mt-5'>Next</button>
+                <button onClick={()=>{navigate(`/dashboard/add-section/${id}`)}}
+                 className='bg-yellow-300 text-richblack-800 p-1 px-3 text-lg rounded-lg font-medium mt-5'>Next</button>
             </div>
         </form>
     </main>

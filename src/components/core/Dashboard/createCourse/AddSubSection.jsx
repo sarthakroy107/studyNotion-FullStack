@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { apiConnector } from '../../../../services/apiconnector'
 import { courseEndpoints } from '../../../../services/api'
 import { useSelector } from 'react-redux'
@@ -15,6 +15,7 @@ const AddSubSection = () => {
         id: -1, name: ""
     });
     const [editSubSectionDetails, setEditSubSectionDetails] = useState({})
+    const navigate = useNavigate()
 
 
     //On-change in subsection creation
@@ -228,7 +229,7 @@ const AddSubSection = () => {
                 </button>
             </form>
             <div className='w-full flex justify-center p-3'>
-                <button 
+                <button onClick={()=>{navigate(`/dashboard/publish-course/${id}`)}}
                  className='bg-yellow-300 text-richblack-800 font-medium p-1 px-3 rounded-md text-xl w-fit'>Next</button>
             </div>
         </div>
