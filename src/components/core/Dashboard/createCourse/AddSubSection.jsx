@@ -85,7 +85,6 @@ const AddSubSection = () => {
         }catch(err) {
             console.log(err)
         }
-
         
     }
 
