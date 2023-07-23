@@ -53,6 +53,7 @@ const Publish = () => {
                 > <p className="flex"><AiOutlineLeft className="relative top-[0.30rem] mx-1"/> Back</p></button>
                 <button className="bg-richblack-700 text-lg p-1 px-2 rounded-md 
                 shadow-[2.0px_2.0px_1.0px_rgba(225,225,225,0.3)] mx-5"
+                onClick={()=>navigate('/dashboard/my-courses')}
                 >Save</button>
                 <button disabled={box} className='bg-yellow-300 p-1 px-2 rounded-md text-richblack-800 
                 text-lg font-medium mt-4'

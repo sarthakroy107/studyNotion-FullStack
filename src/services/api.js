@@ -45,6 +45,7 @@ export const courseEndpoints = {
   LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",
   CREATE_RATING_API: BASE_URL + "/course/createRating",
   GET_SECTION_DEATILS: BASE_URL + "/course/getSections",
+  GET_MY_COURSES: BASE_URL + "/course/getMyCourses"
 }
 
 // RATINGS AND REVIEWS

@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import {VscAccount, VscSettingsGear, VscAdd} from 'react-icons/vsc'
 import {FaGraduationCap} from 'react-icons/fa'
 import {IoIosLogOut} from 'react-icons/io'
+import { PiMonitor } from 'react-icons/pi'
 
 const Dashboard = () => {
   return (
@@ -29,6 +30,15 @@ const Dashboard = () => {
             </div>
             <div className='h-[1px] mx-2 bg-richblack-300/25'></div>
             <div className='my-7 flex flex-col gap-2'>
+                <NavLink to={'/dashboard/my-courses'} className={({ isActive }) =>
+                    isActive ? "group text-yellow-300 bg-yellow-300/10 font-bold" : ""
+                    }  >
+                    <div className='flex'>
+                        <div className=' ml-3 flex py-2 gap-2'>
+                            <PiMonitor className='relative top-[0.30rem]'/>My courses
+                        </div>
+                    </div>
+                </NavLink>
                 <NavLink to={'/dashboard/add-course'} className={({ isActive }) =>
                     isActive ? "group text-yellow-300 bg-yellow-300/10 font-bold" : ""
                     }  >
