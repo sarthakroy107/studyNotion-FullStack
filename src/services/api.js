@@ -1,6 +1,6 @@
-//const BASE_URL = "https://study-notion-api.vercel.app/api/v1"
+const BASE_URL = "https://study-notion-api.vercel.app/api/v1"
 //const BASE_URL = "http://localhost:6970/api/v1"
-const BASE_URL = "https://study-notion-api.onrender.com/api/v1"
+//const BASE_URL = "https://study-notion-api.onrender.com/api/v1"
 
 // AUTH ENDPOINTS
 export const endpoints = {
@@ -45,7 +45,8 @@ export const courseEndpoints = {
   LECTURE_COMPLETION_API: BASE_URL + "/course/updateCourseProgress",
   CREATE_RATING_API: BASE_URL + "/course/createRating",
   GET_SECTION_DEATILS: BASE_URL + "/course/getSections",
-  GET_MY_COURSES: BASE_URL + "/course/getMyCourses"
+  GET_MY_COURSES: BASE_URL + "/course/getMyCourses",
+  GET_ENROLLED_COURSES: BASE_URL + "/course/getEnrolledCourses",
 }
 
 // RATINGS AND REVIEWS
