@@ -9,7 +9,9 @@ import {RiDeleteBin5Line, RiEditLine} from 'react-icons/ri'
 const AddSubSection = () => {
     const [sections, setSections] = useState([])
     const {id} = useParams();
-    const [deatils, setDetails] = useState({})
+    const [deatils, setDetails] = useState({
+        courseId: id,
+    })
     const {token} = useSelector((state)=>state.auth)
     const [edit, setEdit] = useState({
         id: -1, name: ""
@@ -55,9 +57,15 @@ const AddSubSection = () => {
 
     const handleSubSectionDelete = async (sub) => {
         try {
-            const res = await apiConnector("POST", courseEndpoints.DELETE_SUBSECTION_API, {subSectionId: sub._id, sectionId: id}, {
+            const res = await apiConnector("POST", courseEndpoints.DELETE_SUBSECTION_API, 
+            {
+                subSectionId: sub._id, 
+                sectionId: id, courseId: id
+            }, 
+            {
                 Authorization: `Bearer ${token}`,
-            })
+            }
+            )
             console.log(res);
             fetchSections();
 

@@ -18,7 +18,7 @@ const MyCourses = () => {
         Authorization: `Bearer ${token}`,
       })
       console.log(res)
-      setCourses(res.data.data.courses)
+      setCourses(res.data.data.myCourses)
     }catch(err) {
       console.log(err)
     }

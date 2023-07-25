@@ -35,10 +35,10 @@ const Category = () => {
       <div className='text-richblack-500 text-lg font-semibold w-full bg-richblack-800 p-4 py-8 flex justify-center'>
         <div className='w-3/4'>Home / Categories / <span className='text-yellow-50 font-normal'>{id}</span></div>
       </div>
-      <div className='flex flex-col bg-richblack-900 text-richblack-200 justify-center items-center'>
-        <div className='w-4/5'>
-          <h2 className='text-3xl ml-3 font-semibold my-4'>Top selling courses</h2>
-          <div className='grid grid-cols-3'>
+      <div className='flex flex-col w-full bg-richblack-900 text-richblack-200 justify-center items-center'>
+        <div className='w-11/12'>
+          <h2 className='text-4xl text-richblack-50 ml-3 font-semibold my-6'>Top selling courses</h2>
+          <div className='grid grid-cols-5 gap-4'>
             {
               topCourses.map((course)=>(
                   <NavLink to={`/course/${course._id}`}>
@@ -48,9 +48,9 @@ const Category = () => {
             }
           </div>
         </div>
-        <div className='w-4/5'>
-          <h2 className='text-3xl ml-3 font-semibold my-4'>Latest courses</h2>
-          <div className='grid grid-cols-3'>
+        <div className='w-11/12'>
+          <h2 className='text-4xl ml-3 text-richblack-50 font-semibold my-6'>Latest courses</h2>
+          <div className='grid grid-cols-5 gap-3'>
             {
               newCourses.map((course)=>(
                 <NavLink to={`/course/${course._id}`}>
