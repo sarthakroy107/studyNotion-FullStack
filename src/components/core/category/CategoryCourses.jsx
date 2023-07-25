@@ -18,8 +18,8 @@ const CategoryCourses = ({course}) => {
   console.log(course)
   return (
     <motion.main initial={{y:0}} whileHover={{y:-8}} transition={{duration:0.15}}
-    className='w-full h-72 rounded-lg flex flex-col shadow-[0_35px_60px_-15px_rgba(225,225,225,0.2)]
-    justify-center items-center ga-3 bg-richblack-700'>
+    className='w-full h-72 rounded-lg flex flex-col
+    justify-center items-center ga-3 bg-richblack-800'>
      <div className='w-11/12 h-32 rounded-md'>
       <img className='rounded-md w-full object-cover h-full border in border-richblack-900' src={course.thumbnail} alt="Image" />
     </div>
