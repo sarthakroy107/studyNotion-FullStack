@@ -14,7 +14,7 @@ const Rating = ({avgRating, sectionRating}) =>{
 }
 
 
-const CategoryCourses = ({course}) => {
+const  CategoryCourses = ({course}) => {
   console.log(course)
   return (
     <motion.main initial={{y:0}} whileHover={{y:-8}} transition={{duration:0.15}}
