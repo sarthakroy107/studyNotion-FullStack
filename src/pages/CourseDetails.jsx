@@ -24,6 +24,7 @@ const Rating = ({avgRating, sectionRating}) =>{
 const CourseDetails = () => {
   const {id} = useParams();
   const {token} = useSelector((state)=>state.auth)
+  const {user} =useSelector((state)=>state.profile)
   const [course, setCourse] = useState({})
   const [courseName, setCourseName] = useState("")
   const fetchCourseDetails = async () => {
@@ -33,12 +34,15 @@ const CourseDetails = () => {
     setCourse(res?.data?.data)
     console.log(res?.data?.data)
   }
-  const truncatedNameFunc = ({name}) => {
-    return name
+
+  const handleBuyNow = ()=> {
+    buyCourse(token, [id], user,)
   }
+
   useEffect(()=>{
     fetchCourseDetails()
   },[])
+
   let truncatedName;
   useEffect(()=>{
     (async()=>{
@@ -51,9 +55,12 @@ const CourseDetails = () => {
     })()
     console.log(truncatedName)
   }, [course, truncatedName])
+
+
   useEffect(()=>{
 
   }, [courseName])
+
 
   return (
    <main className='w-full min-h-screen bg-richblack-900 text-richblack-200 flex md:flex-col md:items-center'>
@@ -100,7 +107,8 @@ const CourseDetails = () => {
           <img className='w-full rounded' src={course.thumbnail}/>
         </div>
         <p className='w-5/6 my-2 text-2xl font-medium text-richblack-100'>₹ {course.price}</p>
-        <button className='w-5/6 bg-yellow-200 rounded-md py-1 text-xl text-richblack-800 font-medium'>BUY NOW</button>
+        <button onClick={handleBuyNow}
+         className='w-5/6 bg-yellow-200 rounded-md py-1 text-xl text-richblack-800 font-medium'>BUY NOW</button>
         <div className='w-11/12 border-b border-richblack-900/30 my-3'></div>
         <div className='w-5/6'>
           <p className='text-lg font-medium text-richblack-50'>What's included</p>
