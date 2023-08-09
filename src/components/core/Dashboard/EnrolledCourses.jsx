@@ -9,7 +9,10 @@ const EnrolledCourses = () => {
 
   const [courses, setCourses] = useState([])
   const {token} = useSelector((state)=>state.auth)
-  const [ratingModal, setRatingModal] = useState(false)
+  const [ratingModal, setRatingModal] = useState({
+    id:-1,
+    state:false
+  })
   
   const fetchEnrolledCourses = async () => {
     const res = await apiConnector("POST", courseEndpoints.GET_ENROLLED_COURSES, null, {
@@ -41,7 +44,7 @@ const EnrolledCourses = () => {
             {
               courses.map((course, index)=>(
                 <div className='flex my-2'>
-                  <div className='h-28 w-1/5 overflow-hidden  px-2'>
+                  <div className='h-28 w-1/5 overflow-hidden px-2'>
                     <img className='w-48 h-28 object-contain rounded-lg' src={course._doc.thumbnail}/>
                   </div>
                   <div className='text-xl w-1/5 flex flex-col justify-center gap-1 text-richblack-50 font-medium'>
@@ -68,10 +71,11 @@ const EnrolledCourses = () => {
                       </div>
                   </div>
                   <div className='w-1/5 flex justify-center items-center'>
-                      <button onClick={()=>setRatingModal(true)}>
-                        <RatingModal isVisible={ratingModal} onClose={()=>setRatingModal(!ratingModal)}/>
+                      <button onClick={()=>setRatingModal({id: index, state:true})}>
                         rate
                       </button>
+                      {ratingModal.id == index  && <RatingModal isVisible={ratingModal}
+                      onClose={() => setRatingModal({id: -1, state:false})} />}
                   </div>
                 </div>
 
